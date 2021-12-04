@@ -15,3 +15,4 @@ testing_settings;
 requirements.txt;
 documentation;
 prediction of time;
+timezones;
