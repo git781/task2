@@ -1,0 +1,20 @@
+ model: auth.user
+  pk: 1
+  fields:
+    password: pbkdf2_sha256$216000$4MxwsVXAXbLs$eid+bfqZEwieeQWyLrtaDynXFIJLgZlCD0OzgnS7bmw=
+    username: user_test1
+    is_admin: True
+
+model: task2_main.voltagesensor
+  pk: 1
+  fields:
+    user: user_test1
+    ip: 127.0.0.1
+
+model: task2_main.measurements
+  pk: 1
+  fields:
+    sensor: user_test1
+    time_stamp: '2021-05-05 15:00:00.000000+01:00'
+    current_voltage: 2
+    is_error: False
