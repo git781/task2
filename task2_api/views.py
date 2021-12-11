@@ -33,10 +33,13 @@ class AdminMeasurementRecentViewSet(viewsets.ModelViewSet):
         is_error=False,  
     ).order_by('id').reverse()[:1]
 
-class MeasurementViewSet(viewsets.ViewSet):
+class AdminMeasurementViewSet(viewsets.ModelViewSet):
     """
     API endpoint that gets the most recent record.
     """
+    serializer_class= MeasurementActualSerializer
+    queryset=Measurement.objects.all()
+
     def retrieve(self):
         queryset = Measurement.objects.filter(
         is_error=False,  
@@ -44,3 +47,5 @@ class MeasurementViewSet(viewsets.ViewSet):
         measurement = get_object_or_404(queryset)
         serializer = MeasurementActualSerializer(measurement)
         return Response(serializer.data) 
+    #make a list() and take the first object
+    

@@ -12,5 +12,5 @@ router.register(r'measurement/create/', views.AdminMeasurementRecentViewSet)
 
 urlpatterns =[ 
     path('', include(router.urls)), 
-    path('/recent', views.MeasurementViewSet.as_view({'get':'retrieve'}, name="recent")),
+    #path('recent/', views.AdminMeasurementViewSet.as_view({'get':'retrieve'}, name="recent")),
 ]
