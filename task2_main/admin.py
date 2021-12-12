@@ -12,10 +12,10 @@ class MeasurementAdmin(admin.ModelAdmin):
 
 @admin.register(ValidatedMeasurement)
 class ValidatedMeasurementAdmin(admin.ModelAdmin):
-    list_display=('current_voltage', 'sensor')
+    list_display=('current_voltage', 'sensor', 'datetime_valid')
     #TODO: 'time_in_poland',
 
 @admin.register(InvalidMeasurement)
 class InvalidMeasurementAdmin(admin.ModelAdmin):
-    list_display=('current_voltage', 'time_where_sensor', 'email_sent')
+    list_display=('current_voltage', 'datetime_valid', 'email_sent')
     #TODO: 'sensor','time_in_poland', 

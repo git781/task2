@@ -1,10 +1,12 @@
 from django.db.models import Max
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
+from rest_framework.dectoators import action
 from rest_framework.response import Response
 
-from task2_main.models import VoltageSensor, Measurement
-from task2_api.serializers import VoltageSensorActualSerializer, MeasurementActualSerializer
+from task2_main.models import VoltageSensor, Measurement, ValidatedMeasurement
+from task2_api.serializers import VoltageSensorActualSerializer, MeasurementActualSerializer, ValidatedMeasurementSerializer
+from task2_api.utils import estimate_coef
 #from task2_api.permissions import AdminAuthenticationPermission
 
 class AdminVoltageSensorRecentViewSet(viewsets.ModelViewSet):
@@ -34,18 +36,15 @@ class AdminMeasurementRecentViewSet(viewsets.ModelViewSet):
     ).order_by('id').reverse()[:1]
 
 class AdminMeasurementViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that gets the most recent record.
-    """
-    serializer_class= MeasurementActualSerializer
-    queryset=Measurement.objects.all()
+    serializer_class = ValidatedMeasurementSerializer
+    queryset= ValidatedMeasurement.objects.all()
 
-    def retrieve(self):
-        queryset = Measurement.objects.filter(
-        is_error=False,  
-    ).order_by('id').reverse()
-        measurement = get_object_or_404(queryset)
-        serializer = MeasurementActualSerializer(measurement)
-        return Response(serializer.data) 
-    #make a list() and take the first object
+    @action(detail=True, methods=['get'])
+    def dumb_model(self, request):
+        datetime_local = self.kwargd['name']
+        qs=super().get_queryset()
+        #In summary, if y = mx + b, then m is the slope and b is the y-intercept (i.e., the value of y when x = 0). 
+        #b_0 and b_1 are regression coefficients and represent y-intercept and slope of regression line respectively.
+
+
     
